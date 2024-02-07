@@ -1,14 +1,16 @@
 from math import gcd, sqrt, floor
 
-def swap(a,b):
+
+def swap(a, b):
     t = a
     a = b
     b = t
-    return a,b
+    return a, b
 
-def gcdEuclidean(a,b):
+
+def gcdEuclidean(a, b):
     if b > a:
-        a,b = swap(a,b)
+        a, b = swap(a, b)
     qs = []
     while b > 0:
         q = a // b
@@ -17,9 +19,11 @@ def gcdEuclidean(a,b):
         b = r
         qs.append(q)
 
-    return a,qs
+    return a, qs
 
-def extendedEuclideanAlgorithm(a,b):
+
+def extendedEuclideanAlgorithm(a, b):
+    print("Extended Euclidean Algorithm")
     s1 = 1
     s2 = 0
     t1 = 0
@@ -27,9 +31,10 @@ def extendedEuclideanAlgorithm(a,b):
     while a and b:
         q = a // b
         a, b = b, a % b
-        s1,s2 =s2, s1 - q*s2
-        t1,t2 = t2, t1 - q * t2
-    return s1,t1,a
+        s1, s2 = s2, s1 - q * s2
+        t1, t2 = t2, t1 - q * t2
+        print(f"q={q}; a={a}; b={b}; s1={s1}; s2={s2}; t1={t1}; t2={t2}")
+    return s1, t1, a
 
 
 def is_prime(n):

@@ -1,5 +1,36 @@
 from math import gcd, sqrt, floor
 
+def swap(a,b):
+    t = a
+    a = b
+    b = t
+    return a,b
+
+def gcdEuclidean(a,b):
+    if b > a:
+        a,b = swap(a,b)
+    qs = []
+    while b > 0:
+        q = a // b
+        r = a % b
+        a = b
+        b = r
+        qs.append(q)
+
+    return a,qs
+
+def extendedEuclideanAlgorithm(a,b):
+    s1 = 1
+    s2 = 0
+    t1 = 0
+    t2 = 1
+    while a and b:
+        q = a // b
+        a, b = b, a % b
+        s1,s2 =s2, s1 - q*s2
+        t1,t2 = t2, t1 - q * t2
+    return s1,t1,a
+
 
 def is_prime(n):
     if n <= 1:
@@ -27,5 +58,4 @@ def valueFunctionEuler(n):
     divs = list(set(divs))
     for div in divs:
         euler *= (1 - (1 / div))
-        # print(euler)
     return floor(euler * n)

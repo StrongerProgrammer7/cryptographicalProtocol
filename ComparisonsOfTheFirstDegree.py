@@ -30,13 +30,7 @@ class ComparisonsOfTheFirstDegree(MyMath):
         else:
             print("Solution with Euclidean")
             # s*a+t*b = GCD(a,b)
-            s, t, g = self._extendedEuclideanAlgorithm(a, mod)
-            if g != 1:
-                print("multiplicative inversion not exists")
-                return xs
-            print("multiplicative inversion exists")
-            print(f"multiplicative inversion {a} = {(s % mod + mod) % mod} ")
-            xs = (s % mod + mod) % mod
+            xs = self._inversionNumbyModule(a,mod)
 
         if countSolution > 1:
             print(" You're lucky! Have some solution")
@@ -45,7 +39,12 @@ class ComparisonsOfTheFirstDegree(MyMath):
                 xs.append(xs[0] + mod * i)
         return xs
 
-
+    def _inversionNumbyModule(self, num, mod):
+        s, t, g = self._extendedEuclideanAlgorithm(num, mod)
+        if g != 1:
+            raise Exception('multiplicative inversion not exists')
+        print(f"multiplicative inversion {num} = {(s % mod + mod) % mod} ")
+        return (s % mod + mod) % mod
 
     def _solutionWithTheoremEuler(self, a, b, mod, degree):
         degree -= 1

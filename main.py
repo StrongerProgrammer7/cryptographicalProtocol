@@ -1,16 +1,13 @@
-# This is a sample Python script.
+from math import gcd, sqrt,floor
+from helper import is_prime,valueFunctionEuler
 
-# Press Shift+F10 to execute it or replace it with your code.
-# Press Double Shift to search everywhere for classes, files, tool windows, actions, and settings.
-
-
-def print_hi(name):
-    # Use a breakpoint in the code line below to debug your script.
-    print(f'Hi, {name}')  # Press Ctrl+F8 to toggle the breakpoint.
+def comparisonsOfTheFirstDegree(a, b, mod):
+    NOD = gcd(a, mod)
+    print(NOD)
+    # x=b*a^(f(n)-1) mod m
 
 
-# Press the green button in the gutter to run the script.
 if __name__ == '__main__':
-    print_hi('PyCharm')
+    print(f"Run {5 % 2}")
+    comparisonsOfTheFirstDegree(5, 14, 7)
 
-# See PyCharm help at https://www.jetbrains.com/help/pycharm/

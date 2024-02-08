@@ -11,6 +11,7 @@ class ComparisonsOfTheFirstDegree(MyMath):
         return True
 
     def comparisonsOfTheFirstDegree(self, a, b, mod):
+        print(f"Example: {a}x = {b} mod {mod}")
         xs = 0
         nod = gcd(a, mod)
         print(f"greatest common divisor ===> {nod}")
@@ -37,6 +38,7 @@ class ComparisonsOfTheFirstDegree(MyMath):
             xs = [xs]
             for i in range(1, countSolution):
                 xs.append(xs[0] + mod * i)
+        print("\n")
         return xs
 
     def _inversionNumbyModule(self, num, mod):

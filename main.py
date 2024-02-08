@@ -9,4 +9,5 @@ if __name__ == '__main__':
     print(comparsion.comparisonsOfTheFirstDegree(3, 19, 34))
     print(comparsion.comparisonsOfTheFirstDegree(5, 8, 21))
     print(comparsion.comparisonsOfTheFirstDegree(9, 21, 48))
-
+    print(comparsion.comparisonsOfTheFirstDegree(5, 19, 33))
+    print(comparsion.comparisonsOfTheFirstDegree(3, 19, 34))

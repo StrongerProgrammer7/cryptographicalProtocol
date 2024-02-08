@@ -30,21 +30,9 @@ class ComparisonsOfTheFirstDegree(MyMath):
             xs = self._solutionWithTheoremEuler(a, b, mod, valueEuler)
         else:
             print("Solution with Euclidean")
-            '''
-            if d|b ===> a|d & b|d & mod|d 
-            multiplicative inversion a = c
-            a * c & b * c
-            Next accept euler 
-            '''
             # s*a+t*b = GCD(a,b)
-            xs = self._inversionNumbyModule(a,mod)
-            print(f"We found multiplicative inversion, next mult {a}|{b} * {xs}")
-            print(f"We got a={a*xs} & b={b*xs}")
-            a = xs * a
-            b = xs * b
-            print(f"Now solution ===> {a}x = {b} mod {mod}")
-            print("Using theorem Euler")
-            xs = self._solutionWithTheoremEuler(a, b, mod, valueEuler)
+            s,_,_ = self._extendedEuclideanAlgorithm(a,mod)
+            xs = (s*b) % mod
 
         if xs is None:
             return None

@@ -46,3 +46,37 @@ class MyMath:
             qs.append(q)
 
         return a, qs
+
+    @staticmethod
+    def extendedEuclideanAlgorithm(a, b):
+        print("Extended Euclidean Algorithm")
+        s1 = 1
+        s2 = 0
+        t1 = 0
+        t2 = 1
+        while a and b:
+            q = a // b
+            a, b = b, a % b
+            s = s1 - q * s2
+            s1, s2 = s2, s
+            t = t1 - q * t2
+            t1, t2 = t2, t
+            print(f"q={q}; r1={a}; r2={b}; s1={s1}; s2={s2}; t1={t1}; t2={t2};  s={s};  t={t}")
+        return s1, t1, a
+
+    @staticmethod
+    def isOdd(a):
+        return a % 2 == 1
+
+    @staticmethod
+    def factorIntoPrimeFactors(n):
+        i = 2
+        factors = []
+        while i * i <= n:
+            while n % i == 0:
+                factors.append(i)
+                n = n // i
+            i = i + 1
+        if n > 1:
+            factors.append(n)
+        return factors

@@ -31,7 +31,7 @@ class ComparisonsOfTheFirstDegree(MyMath):
         else:
             print("Solution with Euclidean")
             # s*a+t*b = GCD(a,b)
-            s,_,_ = self._extendedEuclideanAlgorithm(a,mod)
+            s,_,_ = MyMath.extendedEuclideanAlgorithm(a,mod)
             xs = (s*b) % mod
 
         if xs is None:
@@ -45,7 +45,7 @@ class ComparisonsOfTheFirstDegree(MyMath):
         return xs
 
     def _inversionNumbyModule(self, num, mod):
-        s, t, g = self._extendedEuclideanAlgorithm(num, mod)
+        s, t, g = MyMath.extendedEuclideanAlgorithm(num, mod)
         if g != 1:
             print('multiplicative inversion not exists')
             return None
@@ -70,20 +70,6 @@ class ComparisonsOfTheFirstDegree(MyMath):
 
         print(f"x0={b} mod {mod}")
         return b
-
-    def _extendedEuclideanAlgorithm(self, a, b):
-        print("Extended Euclidean Algorithm")
-        s1 = 1
-        s2 = 0
-        t1 = 0
-        t2 = 1
-        while a and b:
-            q = a // b
-            a, b = b, a % b
-            s1, s2 = s2, s1 - q * s2
-            t1, t2 = t2, t1 - q * t2
-            print(f"q={q}; a={a}; b={b}; s1={s1}; s2={s2}; t1={t1}; t2={t2}")
-        return s1, t1, a
 
     def _modulus(self, a, mod):
         if a > mod:

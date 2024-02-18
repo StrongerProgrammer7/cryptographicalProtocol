@@ -1,6 +1,6 @@
 from math import sqrt, floor
 from helper import swap
-
+import itertools
 
 class MyMath:
 
@@ -106,3 +106,16 @@ class MyMath:
             return power
         else:
             return None
+
+    @staticmethod
+    def generateSignVariations(matrix):
+        rows, cols = len(matrix), len(matrix[0])
+        sign_variations = []
+
+        for signs in itertools.product([-1, 1], repeat=rows):
+            variation = [matrix[i].copy() for i in range(rows)]
+            for i, sign in enumerate(signs):
+                variation[i][0] *= sign
+            sign_variations.append(variation)
+
+        return sign_variations

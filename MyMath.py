@@ -48,7 +48,7 @@ class MyMath:
         return a, qs
 
     @staticmethod
-    def extendedEuclideanAlgorithm(a, b):
+    def extendedEuclideanAlgorithm(a, b,showStep=True):
         print("Extended Euclidean Algorithm")
         s1 = 1
         s2 = 0
@@ -61,7 +61,7 @@ class MyMath:
             s1, s2 = s2, s
             t = t1 - q * t2
             t1, t2 = t2, t
-            print(f"q={q}; r1={a}; r2={b}; s1={s1}; s2={s2}; t1={t1}; t2={t2};  s={s};  t={t}")
+            print(f"q={q}; r1={a}; r2={b}; s1={s1}; s2={s2}; t1={t1}; t2={t2};  s={s};  t={t}") if showStep is True else None
         return s1, t1, a
 
     @staticmethod
@@ -80,3 +80,29 @@ class MyMath:
         if n > 1:
             factors.append(n)
         return factors
+
+    @staticmethod
+    def gcd_recursiveForArray(arr):
+        if len(arr) == 2:
+            a, b = arr
+            _,_,nod = MyMath.extendedEuclideanAlgorithm(a,b,False)
+            return nod
+        elif len(arr) > 2:
+            return MyMath.gcd_recursiveForArray([arr[0], MyMath.gcd_recursiveForArray(arr[1:])])
+        else:
+            return None
+
+    @staticmethod
+    def numberIsPowerTwo(n):
+        return n > 0 and (n & (n - 1)) == 0
+
+    @staticmethod
+    def findPowerTwo(n):
+        if MyMath.numberIsPowerTwo(n):
+            power = 0
+            while n > 1:
+                n //= 2
+                power += 1
+            return power
+        else:
+            return None

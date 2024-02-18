@@ -20,7 +20,7 @@ class ChineseRemainderTheorem(MyMath):
         for elem in m:
             Mtemp = M // elem
             Mi.append(Mtemp)
-            Mireverse.append(self.comparsion.comparisonsOfTheFirstDegree(Mtemp,1,elem))
+            Mireverse.append(self.comparsion.comparisonsOfTheFirstDegree(Mtemp,1,elem,False))
 
         result = 0
         for i in range(len(system)):

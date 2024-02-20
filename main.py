@@ -22,7 +22,7 @@ def outputSolutionComprasionOfTheFirstDegree():
 
 if __name__ == '__main__':
     quadraticResidues = QuadraticResidues()
-    # print(quadraticResidues.symbolLegandre(12,3427))
+    #print(quadraticResidues.symbolLegandre(1,5))
     # print(quadraticResidues.symbolLegandre(4,14))
     # print(quadraticResidues.symbolLegandre(5, 10))
     # print(quadraticResidues.symbolLegandre(7, 33))

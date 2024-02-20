@@ -33,23 +33,10 @@ class MyMath:
             euler *= (1 - (1 / div))
         return floor(euler * n)
 
-    @staticmethod
-    def gcdEuclidean(a, b):
-        if b > a:
-            a, b = swap(a, b)
-        qs = []
-        while b > 0:
-            q = a // b
-            r = a % b
-            a = b
-            b = r
-            qs.append(q)
-
-        return a, qs
 
     @staticmethod
     def extendedEuclideanAlgorithm(a, b,showStep=True):
-        print("Extended Euclidean Algorithm")
+        print("Extended Euclidean Algorithm") if showStep is True else None
         s1 = 1
         s2 = 0
         t1 = 0
@@ -82,13 +69,13 @@ class MyMath:
         return factors
 
     @staticmethod
-    def gcd_recursiveForArray(arr):
+    def gcdForArrayNumbers(arr):
         if len(arr) == 2:
             a, b = arr
             _,_,nod = MyMath.extendedEuclideanAlgorithm(a,b,False)
             return nod
         elif len(arr) > 2:
-            return MyMath.gcd_recursiveForArray([arr[0], MyMath.gcd_recursiveForArray(arr[1:])])
+            return MyMath.gcdForArrayNumbers([arr[0], MyMath.gcdForArrayNumbers(arr[1:])])
         else:
             return None
 
@@ -108,7 +95,7 @@ class MyMath:
             return None
 
     @staticmethod
-    def generateSignVariations(matrix):
+    def generateSignVariations(matrix): #Все вариации знаков (-1,+1)
         rows, cols = len(matrix), len(matrix[0])
         sign_variations = []
 

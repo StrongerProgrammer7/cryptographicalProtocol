@@ -143,30 +143,7 @@ class QuadraticResidues(MyMath):
                 return [result[0]]
             else:
                 _, _, nod = MyMath.extendedEuclideanAlgorithm(a, p, False)
-                if nod == 1:
-                    print(f"NOD({a},{p}) = 1, have solutions") if self.showStep is True else None
-                    alfa = self._getSeniorDegree(factors)
-                    if alfa == 1:
-                        count_solutions = pow(2, len(factors))
-                    elif alfa == 2:
-                        count_solutions = pow(2, len(factors) + 1)
-                    else:
-                        count_solutions = pow(2, len(factors) + 2)
-                    print("All solutions: =" + str(count_solutions)) if self.showStep is True else None
-                    print("We have next system") if self.showStep is True else None
-                    self._printSystem(a,factors)
-                    system = []
-                    for elem in factors:
-                        results = self.calculateQuadraticResidues(count_solutions, elem)
-                        system.append([sum(results), elem])
-                    system = MyMath.generateSignVariations(system)
-                    print("Variations" , system)
-                    solution = []
-                    for variation in system:
-                        result = self.chineseRemainder.calcChineseRemainder(variation)
-                        solution.append(result)
-                        print("Solution: " + str(result))
-                    return solution
+                return self._solutionWithChineseTheorem(a,p,factors) if nod == 1 else None
 
     def _calcQuadraticResiduesWherePisEven(self, a, p):
         if not MyMath.numberIsPowerTwo(p):
@@ -254,6 +231,32 @@ class QuadraticResidues(MyMath):
                 return [i]
         print("Sorry, we can't find solution")
         return None
+
+    def _solutionWithChineseTheorem(self,a,p,factors):
+        print(f"NOD({a},{p}) = 1, have solutions") if self.showStep is True else None
+        alfa = self._getSeniorDegree(factors)
+        if alfa == 1:
+            count_solutions = pow(2, len(factors))
+        elif alfa == 2:
+            count_solutions = pow(2, len(factors) + 1)
+        else:
+            count_solutions = pow(2, len(factors) + 2)
+        print("All solutions: =" + str(count_solutions)) if self.showStep is True else None
+        print("We have next system") if self.showStep is True else None
+        self._printSystem(a, factors)
+        system = []
+        for elem in factors:
+            results = self.calculateQuadraticResidues(count_solutions, elem)
+            system.append([sum(results), elem])
+        system = MyMath.generateSignVariations(system)
+        print("Variations", system)
+        solution = []
+        for variation in system:
+            result = self.chineseRemainder.calcChineseRemainder(variation)
+            solution.append(result)
+            print("Solution: " + str(result))
+        return solution
+
     def _isAllDivSame(self, factors):
         total_div = factors[0]
         for div in factors:

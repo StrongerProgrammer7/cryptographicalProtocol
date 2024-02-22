@@ -106,3 +106,11 @@ class MyMath:
             sign_variations.append(variation)
 
         return sign_variations
+
+    @staticmethod
+    def get_bit(num: int, pos: int) -> bool:
+        return num >> pos & 1
+
+    @staticmethod
+    def shit_bit(num: int, count_shift: int, maxSize: int) -> int:
+        return (num << count_shift) % (count_shift << maxSize)

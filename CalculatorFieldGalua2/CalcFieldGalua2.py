@@ -4,10 +4,13 @@ from helper import swap
 
 class CalcFieldGalua2(MyMath):
 
-    def __init__(self):
+    def __init__(self,irreduciblePolynom=None):
         print("Welcome to interactive calculator Polynom GF(2^m)")
-        self.irreduciblePolynom = self._interactiveInput()
-        #self.irreduciblePolynom = irreduciblePolynom
+        if irreduciblePolynom is not None:
+            self.irreduciblePolynom = irreduciblePolynom
+        else:
+            self.irreduciblePolynom = self._interactiveInput()
+
         self.maxPower = max(self.irreduciblePolynom)
 
     def GCDPolynom(self, polynom1, polynom2):
@@ -41,7 +44,7 @@ class CalcFieldGalua2(MyMath):
             for j in range(i, len(numbers)):
                 result = self.multmodPolynom(numbers[i], numbers[j])
                 table.append(result)
-                print(f"{result}")
+                #print(f"{result}")
 
         return table
 

@@ -1,6 +1,7 @@
 from ComparisonsOfTheFirstDegree import ComparisonsOfTheFirstDegree
 from QuadraticResidues import QuadraticResidues
-from CalculatorPolynom import CalculatorPolynomGalua
+from CalculatorFieldGalua2.CalcFieldGalua2 import CalcFieldGalua2
+from CalculatorFieldGalua2.CalculatorFieldGalua2 import CalculatorPolynomGalua
 
 def outputSolutionComprasionOfTheFirstDegree():
     comparsion = ComparisonsOfTheFirstDegree()
@@ -28,10 +29,19 @@ def outputQuadraticResides():
     # print(quadraticResidues.calculateQuadraticResidues(33,64))
     print(quadraticResidues.calculateQuadraticResidues(4, 21))
 
+def outputWorkCalcFieldGalue2():
+    # calcPolynom = CalculatorPolynomGalua([8,4,3,1,0])
+    # print(format(calcPolynom.multPolynomsInBite([5,2,1],[7,4,3,2,1]),'b'))
+    # calcPolynom = CalculatorPolynomGalua([3,2,0])
+    # print(bin(calcPolynom.multPolynomsInBite([2,1,0],[2,1,0])))
+    # calcPolynom = CalculatorPolynomGalua([3,1,0])
+    # print(calcPolynom.multmodPolynom([2, 0], [2, 1, 0]))
+    # calcPolynom = CalculatorPolynomGalua([4, 3, 0])
+    # print(calcPolynom.GCDPolynom([5, 0], [3, 2, 1, 0]))
+    # print(calcPolynom.upPolynomByDegree([5, 0], 2))
+    # print(calcPolynom.createTableMultGalua())
+    calculatorFieldGalua2 = CalculatorPolynomGalua()
+    calculatorFieldGalua2.runCalculator()
+
 if __name__ == '__main__':
-    calcPolynom = CalculatorPolynomGalua([8,4,3,1,0])
-    calcPolynom.multPolynomsInBite([5,2,1],[7,4,3,2,1])
-
-
-
-
+    outputWorkCalcFieldGalue2()

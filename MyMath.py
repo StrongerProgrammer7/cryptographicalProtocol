@@ -128,3 +128,21 @@ class MyMath:
             if 1 < p < n:
                 return p
         return -1
+
+    @staticmethod
+    def pollardRHOFactorization(n):
+        x = 2
+        y = x
+
+        p = 1
+        a = 1
+        f = lambda x: (x * x + a)
+        while p == 1:
+            x = f(x) % n
+            y = f(f(y) % n) % n
+            p = math.gcd(abs(x - y), n)
+            print(x, y, p)
+
+        if p != n:
+            return p
+        return None

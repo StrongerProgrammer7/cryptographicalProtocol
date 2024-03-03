@@ -1,7 +1,10 @@
+import math
+
 from ComparisonsOfTheFirstDegree import ComparisonsOfTheFirstDegree
 from QuadraticResidues import QuadraticResidues
 from CalculatorFieldGalua2.CalcFieldGalua2 import CalcFieldGalua2
 from CalculatorFieldGalua2.CalculatorFieldGalua2 import CalculatorPolynomGalua
+
 
 def outputSolutionComprasionOfTheFirstDegree():
     comparsion = ComparisonsOfTheFirstDegree()
@@ -27,7 +30,8 @@ def outputQuadraticResides():
     # print(quadraticResidues.calculateQuadraticResidues(5, 11))
     # print(quadraticResidues.calculateQuadraticResidues(86, 125))
     # print(quadraticResidues.calculateQuadraticResidues(33,64))
-    print(quadraticResidues.calculateQuadraticResidues(4, 21))
+    print(quadraticResidues.calculateQuadraticResidues(20, 47))
+
 
 def outputWorkCalcFieldGalue2():
     # calcPolynom = CalculatorPolynomGalua([8,4,3,1,0])
@@ -43,5 +47,24 @@ def outputWorkCalcFieldGalue2():
     calculatorFieldGalua2 = CalculatorPolynomGalua()
     calculatorFieldGalua2.runCalculator()
 
+
+
+
+
+
 if __name__ == '__main__':
-    outputWorkCalcFieldGalue2()
+    # outputQuadraticResides()
+    # outputWorkCalcFieldGalue2()
+    print(pollardP1Factorization(57247159, 8))
+    num1 = pollardP1Factorization(483, int(math.sqrt(483))+1)
+    num2 = 483 / num1
+    print(483,"=>",num1,num2, f"B={int(math.sqrt(483))+1}")
+    num1 = pollardP1Factorization(1207, int(math.sqrt(1207)) + 1)
+    num2 = 1207 / num1
+    print(1207,"=>",num1, num2,f"B={int(math.sqrt(1207))+1}")
+    num1 = pollardP1Factorization(561, int(math.sqrt(561)) + 1)
+    num2 = 561 / num1
+    print(561,"=>",num1, num2,f"B={int(math.sqrt(561))+1}")
+    num1 = pollardP1Factorization(1219, int(math.sqrt(1219)) + 1)
+    num2 = 1219 / num1
+    print(1219,"=>",num1, num2,f"B={int(math.sqrt(1219))+1}")

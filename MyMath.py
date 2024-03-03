@@ -1,3 +1,4 @@
+import math
 from math import sqrt, floor
 from helper import swap
 import itertools
@@ -114,3 +115,16 @@ class MyMath:
     @staticmethod
     def shit_bit(num: int, count_shift: int, maxSize: int) -> int:
         return (num << count_shift) % (count_shift << maxSize)
+
+    @staticmethod
+    def pollardP1Factorization(n, B):
+        a = 2
+        e = 2
+        while e <= B:
+            a = pow(a, e) % n
+            e += 1
+
+            p = math.gcd(int(a) - 1, n)
+            if 1 < p < n:
+                return p
+        return -1

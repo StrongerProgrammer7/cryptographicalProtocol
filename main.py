@@ -1,10 +1,9 @@
 import math
-
 from ComparisonsOfTheFirstDegree import ComparisonsOfTheFirstDegree
+from CryptoSystems import CryptoDES
+from MyMath import MyMath
 from QuadraticResidues import QuadraticResidues
-from CalculatorFieldGalua2.CalcFieldGalua2 import CalcFieldGalua2
 from CalculatorFieldGalua2.CalculatorFieldGalua2 import CalculatorPolynomGalua
-
 
 def outputSolutionComprasionOfTheFirstDegree():
     comparsion = ComparisonsOfTheFirstDegree()
@@ -32,7 +31,6 @@ def outputQuadraticResides():
     # print(quadraticResidues.calculateQuadraticResidues(33,64))
     print(quadraticResidues.calculateQuadraticResidues(20, 47))
 
-
 def outputWorkCalcFieldGalue2():
     # calcPolynom = CalculatorPolynomGalua([8,4,3,1,0])
     # print(format(calcPolynom.multPolynomsInBite([5,2,1],[7,4,3,2,1]),'b'))
@@ -47,24 +45,46 @@ def outputWorkCalcFieldGalue2():
     calculatorFieldGalua2 = CalculatorPolynomGalua()
     calculatorFieldGalua2.runCalculator()
 
+def calculatePolardoPrint(n):
+    num1 = MyMath.pollardRHOFactorization(n)
+    num2 = n / num1
+    print(n, "=>", num1, num2)
 
+def calculatePolardoP_1():
+    print(MyMath.pollardP1Factorization(57247159, 8))
+    num1 = MyMath.pollardP1Factorization(483, int(math.sqrt(483)) + 1)
+    num2 = 483 / num1
+    print(483, "=>", num1, num2, f"B={int(math.sqrt(483)) + 1}")
 
+def workDESCrypto(message,keyLen):
+    cryptosystemsCBC = CryptoDES("DES.CBC")
+    cryptosystemsCFB = CryptoDES("DES.CFB")
+    # Пример использования
+    keyCBC = cryptosystemsCBC.generateKey(keyLen)
+    keyCFB = cryptosystemsCFB.generateKey(keyLen)
+    message_to_encrypt = message #
+
+    # Шифрование
+    encrypted_message = cryptosystemsCBC.encrypt_des(message_to_encrypt, keyCBC)
+    print(f"Encrypted message: {encrypted_message.hex()}")
+
+    # Расшифрование
+    decrypted_message = cryptosystemsCBC.decrypt_des(encrypted_message, keyCBC)
+    print(f"Decrypted message: {decrypted_message}")
+
+    encrypted_message = cryptosystemsCFB.encrypt_des(message_to_encrypt, keyCFB)
+    print(f"Encrypted message: {encrypted_message.hex()}")
+
+    # Расшифрование
+    decrypted_message = cryptosystemsCFB.decrypt_des(encrypted_message, keyCFB)
+    print(f"Decrypted message: {decrypted_message}")
 
 
 
 if __name__ == '__main__':
     # outputQuadraticResides()
     # outputWorkCalcFieldGalue2()
-    print(pollardP1Factorization(57247159, 8))
-    num1 = pollardP1Factorization(483, int(math.sqrt(483))+1)
-    num2 = 483 / num1
-    print(483,"=>",num1,num2, f"B={int(math.sqrt(483))+1}")
-    num1 = pollardP1Factorization(1207, int(math.sqrt(1207)) + 1)
-    num2 = 1207 / num1
-    print(1207,"=>",num1, num2,f"B={int(math.sqrt(1207))+1}")
-    num1 = pollardP1Factorization(561, int(math.sqrt(561)) + 1)
-    num2 = 561 / num1
-    print(561,"=>",num1, num2,f"B={int(math.sqrt(561))+1}")
-    num1 = pollardP1Factorization(1219, int(math.sqrt(1219)) + 1)
-    num2 = 1219 / num1
-    print(1219,"=>",num1, num2,f"B={int(math.sqrt(1219))+1}")
+    #calculatePolardoP_1()
+    #print(PollardRHOFactorization(434617))
+    workDESCrypto("Hello, DES CBC!",8)
+

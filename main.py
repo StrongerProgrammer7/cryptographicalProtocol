@@ -1,6 +1,7 @@
 import math
 from ComparisonsOfTheFirstDegree import ComparisonsOfTheFirstDegree
-from CryptoSystems import CryptoDES
+from CryptoSystems.CryptoDES import CryptoDES
+from CryptoSystems.CryptoDSS import CryptoDSS
 from MyMath import MyMath
 from QuadraticResidues import QuadraticResidues
 from CalculatorFieldGalua2.CalculatorFieldGalua2 import CalculatorPolynomGalua
@@ -15,7 +16,6 @@ def outputSolutionComprasionOfTheFirstDegree():
     print(comparsion.comparisonsOfTheFirstDegree(9, 21, 48))
     print(comparsion.comparisonsOfTheFirstDegree(5, 19, 33))
     print(comparsion.comparisonsOfTheFirstDegree(3, 19, 34))
-
 
 def outputQuadraticResides():
     quadraticResidues = QuadraticResidues()
@@ -79,12 +79,19 @@ def workDESCrypto(message,keyLen):
     decrypted_message = cryptosystemsCFB.decrypt_des(encrypted_message, keyCFB)
     print(f"Decrypted message: {decrypted_message}")
 
-
+def workSS():
+    file_path = "./CryptoSystems/example.txt"
+    cryptoDSS = CryptoDSS(file_path)
+    cryptoDSS.generate_keypair()
+    signature = cryptoDSS.sign_file(cryptoDSS.private_key)
+    #print(signature)
+    verificationResult = cryptoDSS.verify_signature(cryptoDSS.public_key,signature)
+    print(verificationResult)
 
 if __name__ == '__main__':
     # outputQuadraticResides()
     # outputWorkCalcFieldGalue2()
     #calculatePolardoP_1()
     #print(PollardRHOFactorization(434617))
-    workDESCrypto("Hello, DES CBC!",8)
-
+    #workDESCrypto("Hello, DES CBC!",8)
+    workSS()

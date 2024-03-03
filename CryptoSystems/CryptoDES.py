@@ -1,18 +1,8 @@
-
-from Cryptodome.Random import get_random_bytes
-from Cryptodome.Util.Padding import pad, unpad
 from Cryptodome.Cipher import DES
 
-class CryptoSystems:
-
-    def __init__(self, MODE):
-        if MODE == "DES.CBC":
-            self.MODE = DES.MODE_CBC
-        elif MODE == "DES.CFB":
-            self.MODE = DES.MODE_CFB
-
-    def generateKey(self,length):
-        return get_random_bytes(length)
+from CryptoSystems.CryptoSystems import CryptoSystems
+from Cryptodome.Random import get_random_bytes
+from Cryptodome.Util.Padding import pad, unpad
 
 class CryptoDES(CryptoSystems):
 
@@ -31,5 +21,6 @@ class CryptoDES(CryptoSystems):
         cipher = DES.new(key, self.MODE, iv)
         decrypted_message = unpad(cipher.decrypt(ciphertext), DES.block_size)
         return decrypted_message.decode('utf-8')
+
 
 

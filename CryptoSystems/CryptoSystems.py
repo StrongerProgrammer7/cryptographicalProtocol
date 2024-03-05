@@ -33,8 +33,8 @@ class CryptoSystems:
     def shiftRight(self,x: list, n: int):
         return n * [0] + x[:-n] #включает в себя все элементы списка до
 
-    # full binary adder
-    def getListOfBits(self,i, j):
+    # full binary adder Добавьте сжатый фрагмент к текущему значению хеш-функции:
+    def sumBits(self, i, j):
         # takes to lists of binaries and adds them
         length = len(i)
         listOfBits = list(range(length))

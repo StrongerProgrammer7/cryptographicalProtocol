@@ -135,7 +135,7 @@ class CryptoSHA256(CryptoSystems):
             for i in range(16, 64):
                 s0 = self.getXORZipArrays([self.cyclicShiftRight(w[i - 15], 7), self.cyclicShiftRight(w[i - 15], 18), self.shiftRight(w[i - 15], 3)])
                 s1 = self.getXORZipArrays([self.cyclicShiftRight(w[i - 2], 17), self.cyclicShiftRight(w[i - 2], 19), self.shiftRight(w[i - 2], 10)])
-                w[i] = self.getListOfBits(self.getListOfBits(self.getListOfBits(w[i - 16], s0), w[i - 7]), s1)
+                w[i] = self.sumBits(self.sumBits(self.sumBits(w[i - 16], s0), w[i - 7]), s1)
             a = h0
             b = h1
             c = h2
@@ -147,26 +147,26 @@ class CryptoSHA256(CryptoSystems):
             for j in range(64):
                 S1 = self.getXORZipArrays([self.cyclicShiftRight(e, 6), self.cyclicShiftRight(e, 11), self.cyclicShiftRight(e, 25)])
                 ch = self.getXORZipArrays([self.getANDArray(e, f), self.getANDArray(self.getNotArray(e), g)])
-                temp1 = self.getListOfBits(self.getListOfBits(self.getListOfBits(self.getListOfBits(h, S1), ch), k[j]), w[j])
+                temp1 = self.sumBits(self.sumBits(self.sumBits(self.sumBits(h, S1), ch), k[j]), w[j])
                 S0 = self.getXORZipArrays([self.cyclicShiftRight(a, 2), self.cyclicShiftRight(a, 13), self.cyclicShiftRight(a, 22)])
                 m = self.getXORZipArrays([self.getANDArray(a, b), self.getANDArray(a, c), self.getANDArray(b, c)])
-                temp2 = self.getListOfBits(S0, m)
+                temp2 = self.sumBits(S0, m)
                 h = g
                 g = f
                 f = e
-                e = self.getListOfBits(d, temp1)
+                e = self.sumBits(d, temp1)
                 d = c
                 c = b
                 b = a
-                a = self.getListOfBits(temp1, temp2)
-            h0 = self.getListOfBits(h0, a)
-            h1 = self.getListOfBits(h1, b)
-            h2 = self.getListOfBits(h2, c)
-            h3 = self.getListOfBits(h3, d)
-            h4 = self.getListOfBits(h4, e)
-            h5 = self.getListOfBits(h5, f)
-            h6 = self.getListOfBits(h6, g)
-            h7 = self.getListOfBits(h7, h)
+                a = self.sumBits(temp1, temp2)
+            h0 = self.sumBits(h0, a)
+            h1 = self.sumBits(h1, b)
+            h2 = self.sumBits(h2, c)
+            h3 = self.sumBits(h3, d)
+            h4 = self.sumBits(h4, e)
+            h5 = self.sumBits(h5, f)
+            h6 = self.sumBits(h6, g)
+            h7 = self.sumBits(h7, h)
         digest = ''
         for val in [h0, h1, h2, h3, h4, h5, h6, h7]:
             digest += self.binToHex(val)

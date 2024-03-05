@@ -1,73 +1,11 @@
 from CryptoSystems.CryptoSystems import CryptoSystems
 
-# truth condition is integer 1
-def isTrue(x):
-    return x == 1
-
-# simple if
-def if_(i, y, z):
-    return y if isTrue(i) else z
-
-# and - both arguments need to be true
-def and_(i, j):
-    return if_(i, j, 0)
 
 
-def AND(i, j):
-    return [and_(ia, ja) for ia, ja in zip(i, j)]
 
- # simply negates argument
-def not_(i):
-    return if_(i, 0, 1)
-
-
-def NOT(i):
-    return [not_(x) for x in i]
- # retrun true if either i or j is true but not both at the same time
-def xor(i, j):
-    return if_(i, not_(j), j)
-
-
-def XOR(i, j):
-    return [xor(ia, ja) for ia, ja in zip(i, j)]
-
-# if number of truth values is odd then return true
-def xorxor(i, j, l):
-    return xor(i, xor(j, l))
-
-
-def XORXOR(i, j, l):
-    return [xorxor(ia, ja, la) for ia, ja, la, in zip(i, j, l)]
-
-# get the majority of results, i.e., if 2 or more of three values are the same
-def maj(i, j, k):
-    return max([i, j, ], key=[i, j, k].count)
-
-# rotate right
-def rotr(x, n): return x[-n:] + x[:-n]
-# shift right
-def shr(x, n): return n * [0] + x[:-n]
-
-#full binary adder
-def add(i, j):
-  #takes to lists of binaries and adds them
-  length = len(i)
-  sums = list(range(length))
-  #initial input needs an carry over bit as 0
-  c = 0
-  for x in range(length-1,-1,-1):
-    #add the inout bits with a double xor gate
-    sums[x] = xorxor(i[x], j[x], c)
-    #carry over bit is equal the most represented, e.g., output = 0,1,0
-    # then 0 is the carry over bit
-    c = maj(i[x], j[x], c)
-  #returns list of bits
-  return sums
 class CryptoSHA256(CryptoSystems):
     '''
     Example why h
-    import math
-
     s_root = math.sqrt(2) # 1.4142135623730951
     fractions = math.modf(s_root)[0] # 0.41421356237309515
     fractions = hex(int(fractions * (2**32)))
@@ -77,7 +15,6 @@ class CryptoSHA256(CryptoSystems):
     '''
     Набор констант (k), который будет использоваться для подмешивания в хеш-дайджест,
      представляет собой первые 32 бита дробных частей кубических корней первых 64 простых чисел. 
-     Вот соответствующие шестнадцатеричные значения
      '''
     K = ['0x428a2f98', '0x71374491', '0xb5c0fbcf', '0xe9b5dba5', '0x3956c25b', '0x59f111f1', '0x923f82a4', '0xab1c5ed5',
          '0xd807aa98', '0x12835b01', '0x243185be', '0x550c7dc3', '0x72be5d74', '0x80deb1fe', '0x9bdc06a7', '0xc19bf174',
@@ -94,8 +31,7 @@ class CryptoSHA256(CryptoSystems):
                   '0x5be0cd19']
 
     def translate(self, message):
-        # строковые символы в значения Юникода
-        charcodes = [ord(c) for c in message]
+        charcodes = [ord(c) for c in message]  # перевод в юникод
         # значения Юникода в 8-битные строки (удален двоичный индикатор)
         bytes = []
         for char in charcodes:
@@ -107,7 +43,7 @@ class CryptoSHA256(CryptoSystems):
                 bits.append(int(bit))
         return bits
 
-    def b2Tob16(self, value):
+    def binToHex(self, value):
         # takes list of 32 bits and convert to string
         value = ''.join([str(x) for x in value])
         # create 4 bit chunks, and add bin-indicator(0b)
@@ -132,17 +68,17 @@ class CryptoSHA256(CryptoSystems):
         return bits
 
     def chunker(self, bits, chunk_length=8):
-        # divides list of bits into desired byte/word chunks,
+        # делит список битов на нужные фрагменты байтов/слов,(32)
         # starting at LSB
         chunked = []
         for b in range(0, len(bits), chunk_length):
             chunked.append(bits[b:b + chunk_length])
         return chunked
 
-    def initializer(self,values):
-        # convert from hex to python binary string (with cut bin indicator ('0b'))
+    def initializer(self, values):
+        # преобразовать шестнадцатеричную строку в двоичную строку Python (with cut bin indicator ('0b'))
         binaries = [bin(int(v, 16))[2:] for v in values]
-        # convert from python string representation to a list of 32 bit lists
+        # преобразовать строковое представление Python в список из 32-битных списков
         words = []
         for binary in binaries:
             word = []
@@ -151,17 +87,17 @@ class CryptoSHA256(CryptoSystems):
             words.append(self.fillZeros(word, 32, 'BE'))
         return words
 
-    def preprocessMessage(self,message):
+    def preprocessMessage(self, message):
         # translate message into bits
         bits = self.translate(message)
         # message length
-        length = len(bits)
+        lenMessage = len(bits)
         # get length in bits  of message (64 bit block)
-        message_len = [int(b) for b in bin(length)[2:].zfill(64)]
-        # if length smaller than 448 handle block individually otherwise
-        # if exactly 448 then add single 1 and add up to 1024 and if longer than 448
-        # create multiple of 512 - 64 bits for the length at the end of the message (big endian)
-        if length < 448:
+        message_len = [int(b) for b in bin(lenMessage)[2:].zfill(64)] #[2:] - удалить 0b zfill добавить нули чтобы общая длина была 64
+        # если длина меньше 448, в противном случае обрабатывайте блок отдельно
+        # если ровно 448, то добавьте одну 1 и в сумме получите 1024, а если длиннее 448
+        # создать длину, кратную 512–64 битам, для длины в конце сообщения (с прямым порядком байтов BE)
+        if lenMessage < 448:
             # append single 1
             bits.append(1)
             # fill zeros little endian wise
@@ -170,7 +106,7 @@ class CryptoSHA256(CryptoSystems):
             bits = bits + message_len
             # return as list
             return [bits]
-        elif 448 <= length <= 512:
+        elif 448 <= lenMessage <= 512:
             bits.append(1)
             # moves to next message block - total length = 1024
             bits = self.fillZeros(bits, 1024, 'LE')
@@ -188,18 +124,18 @@ class CryptoSHA256(CryptoSystems):
             # returns it in 512 bit chunks
             return self.chunker(bits, 512)
 
-    def sha256(self,message):
+    def sha256(self, message):
         k = self.initializer(self.K)
         h0, h1, h2, h3, h4, h5, h6, h7 = self.initializer(self.h)
-        chunks = self.preprocessMessage(message)
-        for chunk in chunks:
-            w = self.chunker(chunk, 32)
+        blocks = self.preprocessMessage(message)
+        for block in blocks:
+            w = self.chunker(block, 32)
             for _ in range(48):
                 w.append(32 * [0])
             for i in range(16, 64):
-                s0 = XORXOR(rotr(w[i - 15], 7), rotr(w[i - 15], 18), shr(w[i - 15], 3))
-                s1 = XORXOR(rotr(w[i - 2], 17), rotr(w[i - 2], 19), shr(w[i - 2], 10))
-                w[i] = add(add(add(w[i - 16], s0), w[i - 7]), s1)
+                s0 = self.getXORZipArrays([self.cyclicShiftRight(w[i - 15], 7), self.cyclicShiftRight(w[i - 15], 18), self.shiftRight(w[i - 15], 3)])
+                s1 = self.getXORZipArrays([self.cyclicShiftRight(w[i - 2], 17), self.cyclicShiftRight(w[i - 2], 19), self.shiftRight(w[i - 2], 10)])
+                w[i] = self.getListOfBits(self.getListOfBits(self.getListOfBits(w[i - 16], s0), w[i - 7]), s1)
             a = h0
             b = h1
             c = h2
@@ -209,31 +145,29 @@ class CryptoSHA256(CryptoSystems):
             g = h6
             h = h7
             for j in range(64):
-                S1 = XORXOR(rotr(e, 6), rotr(e, 11), rotr(e, 25))
-                ch = XOR(AND(e, f), AND(NOT(e), g))
-                temp1 = add(add(add(add(h, S1), ch), k[j]), w[j])
-                S0 = XORXOR(rotr(a, 2), rotr(a, 13), rotr(a, 22))
-                m = XORXOR(AND(a, b), AND(a, c), AND(b, c))
-                temp2 = add(S0, m)
+                S1 = self.getXORZipArrays([self.cyclicShiftRight(e, 6), self.cyclicShiftRight(e, 11), self.cyclicShiftRight(e, 25)])
+                ch = self.getXORZipArrays([self.getANDArray(e, f), self.getANDArray(self.getNotArray(e), g)])
+                temp1 = self.getListOfBits(self.getListOfBits(self.getListOfBits(self.getListOfBits(h, S1), ch), k[j]), w[j])
+                S0 = self.getXORZipArrays([self.cyclicShiftRight(a, 2), self.cyclicShiftRight(a, 13), self.cyclicShiftRight(a, 22)])
+                m = self.getXORZipArrays([self.getANDArray(a, b), self.getANDArray(a, c), self.getANDArray(b, c)])
+                temp2 = self.getListOfBits(S0, m)
                 h = g
                 g = f
                 f = e
-                e = add(d, temp1)
+                e = self.getListOfBits(d, temp1)
                 d = c
                 c = b
                 b = a
-                a = add(temp1, temp2)
-            h0 = add(h0, a)
-            h1 = add(h1, b)
-            h2 = add(h2, c)
-            h3 = add(h3, d)
-            h4 = add(h4, e)
-            h5 = add(h5, f)
-            h6 = add(h6, g)
-            h7 = add(h7, h)
+                a = self.getListOfBits(temp1, temp2)
+            h0 = self.getListOfBits(h0, a)
+            h1 = self.getListOfBits(h1, b)
+            h2 = self.getListOfBits(h2, c)
+            h3 = self.getListOfBits(h3, d)
+            h4 = self.getListOfBits(h4, e)
+            h5 = self.getListOfBits(h5, f)
+            h6 = self.getListOfBits(h6, g)
+            h7 = self.getListOfBits(h7, h)
         digest = ''
         for val in [h0, h1, h2, h3, h4, h5, h6, h7]:
-            digest += self.b2Tob16(val)
+            digest += self.binToHex(val)
         return digest
-
-

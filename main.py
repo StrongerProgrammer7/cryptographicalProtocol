@@ -2,6 +2,7 @@ import math
 from ComparisonsOfTheFirstDegree import ComparisonsOfTheFirstDegree
 from CryptoSystems.CryptoDES import CryptoDES
 from CryptoSystems.CryptoDSS import CryptoDSS
+from CryptoSystems.CryptoSHA256 import CryptoSHA256
 from MyMath import MyMath
 from QuadraticResidues import QuadraticResidues
 from CalculatorFieldGalua2.CalculatorFieldGalua2 import CalculatorPolynomGalua
@@ -79,14 +80,17 @@ def workDESCrypto(message,keyLen):
     decrypted_message = cryptosystemsCFB.decrypt_des(encrypted_message, keyCFB)
     print(f"Decrypted message: {decrypted_message}")
 
-def workSS():
+def workDSS():
     file_path = "./CryptoSystems/example.txt"
     cryptoDSS = CryptoDSS(file_path)
     cryptoDSS.generate_keypair()
+    print("Public key" , cryptoDSS.public_key)
+    print("Private key", cryptoDSS.private_key)
     signature = cryptoDSS.sign_file(cryptoDSS.private_key)
-    #print(signature)
+    print("Signature",signature)
     verificationResult = cryptoDSS.verify_signature(cryptoDSS.public_key,signature)
     print(verificationResult)
+
 
 if __name__ == '__main__':
     # outputQuadraticResides()
@@ -94,4 +98,12 @@ if __name__ == '__main__':
     #calculatePolardoP_1()
     #print(PollardRHOFactorization(434617))
     #workDESCrypto("Hello, DES CBC!",8)
-    workSS()
+    #workDSS()
+
+    cryptoSHA256 = CryptoSHA256()
+    print(cryptoSHA256.translate('XO'))
+    print(cryptoSHA256.binToHex(cryptoSHA256.translate('XO')))
+    message = "Hello SHA256"
+    hash_example = cryptoSHA256.sha256(message)
+    print('message: ',message," =====>", hash_example)
+    print('70725d0f78cb0967c0e5171f733619712d239e28f2d279e4b3c3ed97f7456fa3' == hash_example)

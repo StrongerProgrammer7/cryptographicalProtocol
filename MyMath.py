@@ -3,6 +3,7 @@ from math import sqrt, floor
 from helper import swap
 import itertools
 
+
 class MyMath:
 
     @staticmethod
@@ -34,9 +35,8 @@ class MyMath:
             euler *= (1 - (1 / div))
         return floor(euler * n)
 
-
     @staticmethod
-    def extendedEuclideanAlgorithm(a, b,showStep=True):
+    def extendedEuclideanAlgorithm(a, b, showStep=True):
         print("Extended Euclidean Algorithm") if showStep is True else None
         s1 = 1
         s2 = 0
@@ -49,7 +49,8 @@ class MyMath:
             s1, s2 = s2, s
             t = t1 - q * t2
             t1, t2 = t2, t
-            print(f"q={q}; r1={a}; r2={b}; s1={s1}; s2={s2}; t1={t1}; t2={t2};  s={s};  t={t}") if showStep is True else None
+            print(
+                f"q={q}; r1={a}; r2={b}; s1={s1}; s2={s2}; t1={t1}; t2={t2};  s={s};  t={t}") if showStep is True else None
         return s1, t1, a
 
     @staticmethod
@@ -70,10 +71,20 @@ class MyMath:
         return factors
 
     @staticmethod
+    def factorizeIntoTwoNumbers(n):
+        for divisor in range(2, int(n ** 0.5) + 1):
+            if n % divisor == 0:
+                factor1 = divisor
+                factor2 = n // divisor
+                return factor1, factor2
+
+        return None
+
+    @staticmethod
     def gcdForArrayNumbers(arr):
         if len(arr) == 2:
             a, b = arr
-            _,_,nod = MyMath.extendedEuclideanAlgorithm(a,b,False)
+            _, _, nod = MyMath.extendedEuclideanAlgorithm(a, b, False)
             return nod
         elif len(arr) > 2:
             return MyMath.gcdForArrayNumbers([arr[0], MyMath.gcdForArrayNumbers(arr[1:])])
@@ -96,7 +107,7 @@ class MyMath:
             return None
 
     @staticmethod
-    def generateSignVariations(matrix): #Все вариации знаков (-1,+1)
+    def generateSignVariations(matrix):  # Все вариации знаков (-1,+1)
         rows, cols = len(matrix), len(matrix[0])
         sign_variations = []
 
@@ -125,6 +136,7 @@ class MyMath:
             e += 1
 
             p = math.gcd(int(a) - 1, n)
+            print(f"a={a} -- e={e} -- p={p}")
             if 1 < p < n:
                 return p
         return -1
@@ -141,8 +153,28 @@ class MyMath:
             x = f(x) % n
             y = f(f(y) % n) % n
             p = math.gcd(abs(x - y), n)
-            print(x, y, p)
+            print(f"x={x}, y={y}, p={p}")
 
         if p != n:
             return p
+        return None
+
+    @staticmethod
+    def isFullSquare(num):
+        res = sqrt(num)
+        return res % 1 == 0
+
+    @staticmethod
+    def methodFermaFactorize(num):
+        x = int(sqrt(num))
+        while (x < num):
+            w = abs(x * x - num)
+            print(f"x={x} -- w={w}")
+            if MyMath.isFullSquare(w):
+                y = sqrt(w)
+                a = x + y
+                b = x - y
+                print(f"y={y} -- a={a} -- b={b}")
+                return a, b
+            x += 1
         return None

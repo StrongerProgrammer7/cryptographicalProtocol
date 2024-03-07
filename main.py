@@ -6,7 +6,7 @@ from CryptoSystems.CryptoSHA256 import CryptoSHA256
 from MyMath import MyMath
 from QuadraticResidues import QuadraticResidues
 from CalculatorFieldGalua2.CalculatorFieldGalua2 import CalculatorPolynomGalua
-
+from TestFerma import TestFerma
 def outputSolutionComprasionOfTheFirstDegree():
     comparsion = ComparisonsOfTheFirstDegree()
     print(comparsion.comparisonsOfTheFirstDegree(5, 14, 7))
@@ -91,15 +91,7 @@ def workDSS():
     verificationResult = cryptoDSS.verify_signature(cryptoDSS.public_key,signature)
     print(verificationResult)
 
-
-if __name__ == '__main__':
-    # outputQuadraticResides()
-    # outputWorkCalcFieldGalue2()
-    #calculatePolardoP_1()
-    #print(PollardRHOFactorization(434617))
-    #workDESCrypto("Hello, DES CBC!",8)
-    #workDSS()
-
+def workHash():
     cryptoSHA256 = CryptoSHA256()
     print(cryptoSHA256.translate('XO'))
     print(cryptoSHA256.binToHex(cryptoSHA256.translate('XO')))
@@ -107,3 +99,11 @@ if __name__ == '__main__':
     hash_example = cryptoSHA256.sha256(message)
     print('message: ',message," =====>", hash_example)
     print('70725d0f78cb0967c0e5171f733619712d239e28f2d279e4b3c3ed97f7456fa3' == hash_example)
+
+if __name__ == '__main__':
+    # outputQuadraticResides()
+    # outputWorkCalcFieldGalue2()
+    #workDESCrypto("Hello, DES CBF!",8)
+    #workDSS()
+    ferma = TestFerma()
+    ferma.getListCompositeNumbers()

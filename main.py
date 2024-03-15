@@ -30,7 +30,8 @@ def outputQuadraticResides():
     # print(quadraticResidues.calculateQuadraticResidues(5, 11))
     # print(quadraticResidues.calculateQuadraticResidues(86, 125))
     # print(quadraticResidues.calculateQuadraticResidues(33,64))
-    print(quadraticResidues.calculateQuadraticResidues(20, 47))
+    # print(quadraticResidues.calculateQuadraticResidues(20, 47))
+    print(quadraticResidues.calculateQuadraticResidues(4, 21))
 
 def outputWorkCalcFieldGalue2():
     # calcPolynom = CalculatorPolynomGalua([8,4,3,1,0])
@@ -102,8 +103,9 @@ def workHash():
 
 if __name__ == '__main__':
     # outputQuadraticResides()
-    # outputWorkCalcFieldGalue2()
+    #outputWorkCalcFieldGalue2()
     #workDESCrypto("Hello, DES CBF!",8)
     #workDSS()
     ferma = TestFerma()
     ferma.getListCompositeNumbers()
+    # outputQuadraticResides()

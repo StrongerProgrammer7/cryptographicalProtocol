@@ -95,6 +95,8 @@ class QuadraticResidues(MyMath):
 
         print(output, f"{p}") if self.showStep is True else None
 
+        if pow(2,h) > p and pow(2,h)*k == 0:
+            return h,k
         if pow(2, h) * k + (pow(2, h - 1) + 1) == p or (pow(2, h) * min_k + pow(2, h - 1) + 1) == p:
             return h, min_k
         else:
